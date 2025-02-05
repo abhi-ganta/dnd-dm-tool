@@ -2,6 +2,8 @@
 
 A comprehensive web application designed to streamline Dungeons & Dragons gameplay for Dungeon Masters. This tool combines essential DM features into a single, easy-to-use interface.
 
+![D&D DM Tool Home](./public/screenshots/home.png)
+
 ## Features
 
 ### Characters & Combat Management
@@ -13,10 +15,14 @@ A comprehensive web application designed to streamline Dungeons & Dragons gamepl
   - Status effect monitoring
   - Turn order management
 
+![D&D DM Tool Combat Tracker](./public/screenshots/combat-tracker.png)
+
 ### Interactive Soundboard
 - Quick access to ambient sounds and music
 - Customizable sound effects for combat and roleplay
 - Easy-to-use interface for managing audio during sessions
+
+![D&D DM Tool Soundboard](./public/screenshots/soundboard.png)
 
 ### Quick Rules Reference
 - Fast access to commonly used D&D 5e rules
@@ -28,6 +34,9 @@ A comprehensive web application designed to streamline Dungeons & Dragons gamepl
   - Conditions
 - Searchable interface
 - Mobile-friendly design for quick lookups during gameplay
+
+![D&D DM Tool Rules Reference](./public/screenshots/rules.png)
+![D&D DM Tool Rule Details](./public/screenshots/rule-dialog-box.png)
 
 ### Coming Soon
 - **Spell Database**: Comprehensive spell reference and management
