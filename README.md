@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ultimate D&D Dungeon Master Tool
+
+A comprehensive web application designed to streamline Dungeons & Dragons gameplay for Dungeon Masters. This tool combines essential DM features into a single, easy-to-use interface.
+
+## Features
+
+### Characters & Combat Management
+- **Character Tracker**: Keep track of player characters' key stats and information
+- **Monster Reference**: Quick access to monster stats and information
+- **Combat Tracker**: 
+  - Initiative tracking
+  - HP management
+  - Status effect monitoring
+  - Turn order management
+
+### Interactive Soundboard
+- Quick access to ambient sounds and music
+- Customizable sound effects for combat and roleplay
+- Easy-to-use interface for managing audio during sessions
+
+### Quick Rules Reference
+- Fast access to commonly used D&D 5e rules
+- Organized by categories:
+  - Actions
+  - Movement
+  - Combat
+  - Environment
+  - Conditions
+- Searchable interface
+- Mobile-friendly design for quick lookups during gameplay
+
+### Coming Soon
+- **Spell Database**: Comprehensive spell reference and management
+- More features planned...
+
+## Technology Stack
+- Next.js 14 (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Radix UI
+- Zustand (State Management)
 
 ## Getting Started
 
-First, run the development server:
-
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/dnd-dm-tool.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Acknowledgments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Built using the Next.js framework
+- UI components from Radix UI
+- Icons and emojis for intuitive navigation
+- D&D 5e SRD for rule references
 
-## Deploy on Vercel
+## Support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If you encounter any issues or have questions, please file an issue on the GitHub repository.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+This project is not affiliated with Wizards of the Coast or the official Dungeons & Dragons brand.
