@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "D&D Soundboard",
-  description: "A soundboard for D&D sessions",
+  title: "D&D DM Tool",
+  description: "A collection of tools for D&D DMs",
 };
 
 export default function RootLayout({
