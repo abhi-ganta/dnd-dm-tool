@@ -15,8 +15,6 @@ A comprehensive web application designed to streamline Dungeons & Dragons gamepl
   - Status effect monitoring
   - Turn order management
 
-![D&D DM Tool Combat Tracker](./public/screenshots/combat-tracker.png)
-
 ### Interactive Soundboard
 - Quick access to ambient sounds and music
 - Customizable sound effects for combat and roleplay
