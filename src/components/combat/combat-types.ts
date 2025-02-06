@@ -19,6 +19,8 @@ export type CombatParticipant = {
     wis: number
     cha: number
   }
+  maxHp: number
+  currentHp: number
 }
 
 export type CombatCondition = 

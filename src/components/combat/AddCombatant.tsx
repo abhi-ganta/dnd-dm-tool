@@ -13,55 +13,64 @@ import { useMonsterStore } from '../monsters/monster-store'
 
 interface AddCombatantProps {
   existingCharacter?: Character | Monster
-  type?: 'player' | 'npc' | 'monster'
+  type: 'player' | 'npc' | 'monster'
 }
 
+type Entity = Character | Monster
+
 export function AddCombatant({ existingCharacter, type }: AddCombatantProps) {
+  const [name, setName] = useState('')
   const [initiative, setInitiative] = useState('')
-  const [selectedId, setSelectedId] = useState<string>('')
+  const [maxHp, setMaxHp] = useState('')
   const addParticipant = useCombatStore(state => state.addParticipant)
   const characters = useCharacterStore(state => state.characters)
   const monsters = useMonsterStore(state => state.monsters)
 
-  const availableEntities = existingCharacter ? [] : 
+  const availableEntities: Entity[] = existingCharacter ? [] : 
     type === 'monster' ? monsters :
     characters.filter(char => char.type === type)
 
-  const handleAdd = () => {
-    if (!initiative || isNaN(Number(initiative))) return
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!name || !initiative || !maxHp) return
 
-    const baseEntity = existingCharacter ?? 
-      (selectedId ? (
-        type === 'monster' 
-          ? monsters.find(m => m.id === selectedId)
-          : characters.find(c => c.id === selectedId)
-      ) : null)
+    addParticipant({
+      id: crypto.randomUUID(),
+      name,
+      initiative: parseInt(initiative),
+      type,
+      conditions: [],
+      maxHp: parseInt(maxHp),
+      currentHp: parseInt(maxHp),
+      isAlly: type === 'player'
+    })
 
-    if (!baseEntity) return
-
-    const participant: CombatParticipant = {
-      ...baseEntity,
-      initiative: Number(initiative),
-      isAlly: type === 'player',
-      type: type ?? 'npc'
-    }
-
-    addParticipant(participant)
+    setName('')
     setInitiative('')
-    setSelectedId('')
+    setMaxHp('')
+  }
+
+  const handleEntitySelect = (entityId: string) => {
+    const entity = availableEntities.find(e => e.id === entityId)
+    if (entity) {
+      setName(entity.name)
+      // Optionally set other fields if they exist on the entity
+      if ('maxHp' in entity) {
+        setMaxHp(String(entity.maxHp))
+      }
+    }
   }
 
   return (
-    <div className="flex gap-2 items-center">
+    <form onSubmit={handleSubmit} className="flex gap-2">
       <Input
-        type="number"
-        placeholder="Initiative"
-        value={initiative}
-        onChange={(e) => setInitiative(e.target.value)}
-        className="w-24"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="flex-1"
       />
       {!existingCharacter && availableEntities.length > 0 && (
-        <Select value={selectedId} onValueChange={setSelectedId}>
+        <Select onValueChange={handleEntitySelect}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder={`Select ${type === 'player' ? 'Player' : type === 'monster' ? 'Monster' : 'NPC'}`} />
           </SelectTrigger>
@@ -74,10 +83,21 @@ export function AddCombatant({ existingCharacter, type }: AddCombatantProps) {
           </SelectContent>
         </Select>
       )}
-      <Button onClick={handleAdd}>
-        Add {existingCharacter ? existingCharacter.name : 
-          (selectedId ? 'Selected' : type === 'monster' ? 'Monster' : type === 'player' ? 'Player' : 'NPC')}
-      </Button>
-    </div>
+      <Input
+        type="number"
+        placeholder="Initiative"
+        value={initiative}
+        onChange={(e) => setInitiative(e.target.value)}
+        className="w-24"
+      />
+      <Input
+        type="number"
+        placeholder="Max HP"
+        value={maxHp}
+        onChange={(e) => setMaxHp(e.target.value)}
+        className="w-24"
+      />
+      <Button type="submit">Add</Button>
+    </form>
   )
 } 

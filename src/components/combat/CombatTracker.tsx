@@ -32,6 +32,28 @@ export function CombatTracker() {
     updateParticipant(id, { conditions: newConditions })
   }
 
+  const handleUpdateHealth = (id: string, change: number) => {
+    const participant = participants.find(p => p.id === id)
+    if (!participant) return
+
+    const newHp = Math.max(0, Math.min(participant.maxHp, participant.currentHp + change))
+    
+    // Handle unconscious condition
+    const conditions = participant.conditions || []
+    let newConditions = [...conditions]
+    
+    if (newHp === 0 && !conditions.includes('unconscious')) {
+      newConditions.push('unconscious')
+    } else if (newHp > 0 && conditions.includes('unconscious')) {
+      newConditions = newConditions.filter(c => c !== 'unconscious')
+    }
+
+    updateParticipant(id, { 
+      currentHp: newHp,
+      conditions: newConditions
+    })
+  }
+
   return (
     <div className="space-y-6 bg-card border border-border/50 rounded-lg p-4">
       <div className="flex justify-between items-center">
@@ -88,6 +110,7 @@ export function CombatTracker() {
               isCurrent={index === currentTurn}
               onRemove={removeParticipant}
               onToggleCondition={handleToggleCondition}
+              onUpdateHealth={handleUpdateHealth}
             />
           ))}
         </div>

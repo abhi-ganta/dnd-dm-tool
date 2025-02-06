@@ -1,12 +1,15 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Shield, Sword } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Progress } from '@/components/ui/progress'
+import { MinusCircle, PlusCircle, Shield, Sword } from 'lucide-react'
 import { CombatParticipant, CombatCondition } from './combat-types'
 import { CONDITIONS, CONDITION_COLORS } from './combat-conditions'
 import { cn } from '@/lib/utils'
 import { PopoverRoot, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
 import { ConditionTooltip } from './ConditionTooltip'
+import { useState } from 'react'
 
 interface CombatParticipantCardProps {
   participant: CombatParticipant
@@ -14,6 +17,7 @@ interface CombatParticipantCardProps {
   isCurrent: boolean
   onRemove: (id: string) => void
   onToggleCondition: (id: string, condition: CombatCondition) => void
+  onUpdateHealth: (id: string, change: number) => void
 }
 
 export function CombatParticipantCard({
@@ -21,8 +25,20 @@ export function CombatParticipantCard({
   isActive,
   isCurrent,
   onRemove,
-  onToggleCondition
+  onToggleCondition,
+  onUpdateHealth
 }: CombatParticipantCardProps) {
+  const [healthChange, setHealthChange] = useState('')
+  const healthPercentage = (participant.currentHp / participant.maxHp) * 100
+
+  const handleHealthChange = (modifier: number) => {
+    const change = parseInt(healthChange) || 0
+    if (change > 0) {
+      onUpdateHealth(participant.id, change * modifier)
+      setHealthChange('')
+    }
+  }
+
   return (
     <div
       className={cn(
@@ -67,28 +83,63 @@ export function CombatParticipantCard({
 
       <div className="flex items-center gap-2">
         {isActive && (
-          <PopoverRoot>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="sm">
-                Conditions
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Progress value={healthPercentage} className="flex-1" />
+              <span className="text-sm whitespace-nowrap">
+                {participant.currentHp}/{participant.maxHp} HP
+              </span>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => handleHealthChange(-1)}
+              >
+                <MinusCircle className="h-4 w-4" />
               </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80 bg-slate-900 p-4">
-              <div className="grid grid-cols-2 gap-2">
-                {Object.keys(CONDITIONS).map((condition) => (
-                  <Button
-                    key={condition}
-                    variant={participant.conditions?.includes(condition as CombatCondition) ? "secondary" : "outline"}
-                    size="sm"
-                    className="text-slate-50 hover:text-slate-50"
-                    onClick={() => onToggleCondition(participant.id, condition as CombatCondition)}
-                  >
-                    {condition}
-                  </Button>
-                ))}
-              </div>
-            </PopoverContent>
-          </PopoverRoot>
+              
+              <Input
+                type="number"
+                value={healthChange}
+                onChange={(e) => setHealthChange(e.target.value)}
+                className="w-20"
+                placeholder="HP"
+              />
+              
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => handleHealthChange(1)}
+              >
+                <PlusCircle className="h-4 w-4" />
+              </Button>
+            </div>
+
+            <PopoverRoot>
+              <PopoverTrigger asChild>
+                <Button variant="outline" size="sm">
+                  Conditions
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 p-4">
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.keys(CONDITIONS).map((condition) => (
+                    <Button
+                      key={condition}
+                      variant={participant.conditions?.includes(condition as CombatCondition) ? "secondary" : "outline"}
+                      size="sm"
+                      onClick={() => onToggleCondition(participant.id, condition as CombatCondition)}
+                      disabled={condition === 'unconscious' && participant.currentHp === 0}
+                    >
+                      {condition}
+                    </Button>
+                  ))}
+                </div>
+              </PopoverContent>
+            </PopoverRoot>
+          </div>
         )}
         {!isActive && (
           <Button
