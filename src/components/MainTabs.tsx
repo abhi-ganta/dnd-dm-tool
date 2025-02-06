@@ -6,6 +6,8 @@ import { CombatTracker } from '@/components/combat/CombatTracker'
 import { RulesReference } from '@/components/rules/RulesReference'
 import { Soundboard } from '@/components/soundboard/Soundboard'
 import { MonsterSection } from '@/components/monsters/MonsterSection'
+import { SpellList } from '@/components/spells/SpellList'
+
 export function MainTabs() {
   return (
     <div className="space-y-6">
@@ -20,7 +22,7 @@ export function MainTabs() {
           <TabsTrigger value="characters" className="text-base">Characters & Combat</TabsTrigger>
           <TabsTrigger value="soundboard" className="text-base">Soundboard</TabsTrigger>
           <TabsTrigger value="rules" className="text-base">Rules</TabsTrigger>
-          <TabsTrigger value="spells" className="text-base" disabled>Spells</TabsTrigger>
+          <TabsTrigger value="spells" className="text-base">Spells</TabsTrigger>
         </TabsList>
 
         <TabsContent value="characters" className="space-y-6 mt-6">
@@ -48,9 +50,8 @@ export function MainTabs() {
         </TabsContent>
 
         <TabsContent value="spells" className="mt-6">
-          <div className="p-8 text-center bg-background rounded-lg border border-border/50">
-            <h3 className="text-2xl font-semibold mb-2">🪄 Spells</h3>
-            <p className="text-muted-foreground">Coming soon...</p>
+          <div className="p-4 bg-background rounded-lg border border-border/50">
+            <SpellList />
           </div>
         </TabsContent>
       </Tabs>

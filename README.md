@@ -1,6 +1,6 @@
 # Ultimate D&D Dungeon Master Tool
 
-A comprehensive web application designed to streamline Dungeons & Dragons gameplay for Dungeon Masters. This tool combines essential DM features into a single, easy-to-use interface.
+A comprehensive web application designed to streamline Dungeons & Dragons gameplay for Dungeon Masters. This tool combines essential DM features into a single, easy-to-use interface. Feel free to fork and make your own!
 
 ![D&D DM Tool Home](./public/screenshots/home.png)
 
@@ -38,8 +38,22 @@ A comprehensive web application designed to streamline Dungeons & Dragons gamepl
 ![D&D DM Tool Rules Reference](./public/screenshots/rules.png)
 ![D&D DM Tool Rule Details](./public/screenshots/rule-dialog-box.png)
 
+### Spell Database
+- Comprehensive D&D 5e PHB spell reference
+- Advanced filtering options:
+  - Search by name, school, or description
+  - Filter by spell level
+  - Filter by magic school
+  - Filter concentration and ritual spells
+- Detailed spell information:
+  - Casting time and range
+  - Components required
+  - Concentration and ritual indicators
+  - Full spell descriptions
+
+![D&D DM Tool Spell Database](./public/screenshots/spells.png)
+
 ### Coming Soon
-- **Spell Database**: Comprehensive spell reference and management
 - More features planned...
 
 ## Technology Stack
